@@ -1,0 +1,20 @@
+{
+    "name": "Troy-backend",
+    "version": "1.0.0",
+    "description": "Flask Translating API Server",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/twinstarhub/troy-backend"
+    },
+    "bugs": {
+        "url": "https://github.com/app-generator/api-server-flask/issues",
+        "email": "henry.james0311@gmail.com"
+    },
+    "author": "Twinstar <support@TroyTeam> (https://github.com/twinstarhub)",
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}

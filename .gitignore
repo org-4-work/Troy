@@ -1,0 +1,4 @@
+# Ignore Node.js related files
+node_modules/
+env/
+venv/
