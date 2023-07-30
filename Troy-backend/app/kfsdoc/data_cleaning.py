@@ -3,7 +3,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-from translation_model import Translator
+from .translation_model import Translator
 
 
 class ParagraphComparator:

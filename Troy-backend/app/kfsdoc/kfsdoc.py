@@ -93,7 +93,6 @@ class KFSDocReviewer:
         english_sentences, ai_translated_paragraphs = make_same_length(english_sentences, ai_translated_paragraphs)
         english_sentences, ai_translated_paragraphs = make_same_length(english_sentences, ai_translated_paragraphs)
         chinise_sorted_paragraphs, translation_accuracy, number_matching_scores = self.bert.sort_paragraphs(chinese_sentences, ai_translated_paragraphs)
-
         return english_sentences, ai_translated_paragraphs, chinise_sorted_paragraphs, translation_accuracy, number_matching_scores
 
     

@@ -1,8 +1,8 @@
 from typing import List
 import pandas as pd
 from googletrans import Translator as GoogleTranslator
-import time
 from deep_translator import (GoogleTranslator)
+from .utils.text_utils import replace_special_chars_in_list
 
 class Translator:
     _instance = None
@@ -17,6 +17,7 @@ class Translator:
         self.translator = GoogleTranslator(source='auto', target='zh-TW')
 
     def translate(self, texts):
+        texts = replace_special_chars_in_list(texts, lang='zh')
         translations = []
         for text in texts:
             try:

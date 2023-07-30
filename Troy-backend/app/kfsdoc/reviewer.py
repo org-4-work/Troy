@@ -1,10 +1,13 @@
 import os
+import uuid
+import json
+import traceback
 import pandas as pd
 from docx import Document
 from docx.enum.text import WD_COLOR_INDEX, WD_ALIGN_PARAGRAPH
 from docx.shared import Pt
 from app.kfsdoc.kfsdoc import KFSDocReviewer
-import uuid
+
 
 MISSING_TRANSLATION_ACCURACY = 1.1
 UNACURATE_TRANSLATION_ACCURACY = 1.4
@@ -18,37 +21,36 @@ class Reviewer:
         """
         Start the review process by initializing KFSDocReviewer and processing the results.
         """
-        print("Starting review")
-        kfc_document = KFSDocReviewer(self.en_path, self.ch_path)
-        print("Initializing KFSDocReviewer")
-        kfc_document.initialize()
-        print("Processing results")
-        global english_sentences_array
-        global ai_translated_array
-        global chinese_array
-        global translation_accuracy_array
-        global number_matching_scores_array
-        print("Number : 1")
-        english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array = kfc_document.treat()
-        print("Number : 2")
-        number_matching_scores_array = [
-            eval(item) for item in number_matching_scores_array]
-        print("Number : 3")
-        english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array = remove_wrong_lines(
-        english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array)
-        print('generating')
-        highlited_file = generate_result(english_sentences_array, self.en_path)
-        print('successfully')
-
-        return highlited_file
+        try :
+            print("Starting review")
+            kfc_document = KFSDocReviewer(self.en_path, self.ch_path)
+            print("Initializing KFSDocReviewer")
+            kfc_document.initialize()
+            print("Processing results")
+            global english_sentences_array
+            global ai_translated_array
+            global chinese_array
+            global translation_accuracy_array
+            global number_matching_scores_array
 
 
+            print("Number : 1")
+            english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array = kfc_document.treat()
+            print("Number : 2")
+            print(number_matching_scores_array)
+            # number_matching_scores_array = [
+            #     eval(item) for item in number_matching_scores_array]
+            print("Number : 3")
+            english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array = remove_wrong_lines(
+            english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array)
+            print('generating')
+            highlited_file = generate_result(english_sentences_array, self.en_path)
+            print('successfully')
 
-
-
-
-
-
+            return highlited_file
+        except Exception as e:
+            traceback.print_exc()
+            print('error', e)
 
 
 def remove_wrong_lines(english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array):
@@ -168,8 +170,8 @@ def generate_result(paragraphs_to_highlight, path):
     # Process and modify headers and footers for each section in the document
     for section in doc.sections:
         process_headers_footers(section, paragraphs_to_highlight)
-    doc.save(unique_filename)
-    return unique_filename
+    doc.save(path)
+    return path
 
 
 

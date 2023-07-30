@@ -67,6 +67,7 @@ class Review(Resource):
         english_file_path = os.path.join(UPLOAD_FOLDER, uploaded_english_files[0])
         chinese_file_path = os.path.join(UPLOAD_FOLDER, uploaded_chinese_files[0])
         
+        
         if not os.path.exists(english_file_path) or not os.path.exists(chinese_file_path):
             return 'Uploaded files not found', 404
         
@@ -83,7 +84,7 @@ class Download(Resource):
     def get(self, filename):
         app_path = os.path.abspath(os.path.dirname(__file__))
         parent_folder = os.path.dirname(app_path)
-        file_path = os.path.join(parent_folder, "uploads/output/", filename)
+        file_path = os.path.join(parent_folder, UPLOAD_FOLDER, filename)
         if os.path.exists(file_path):
             try:
                 return send_file(file_path, as_attachment=True)
