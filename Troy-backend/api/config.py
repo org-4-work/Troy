@@ -6,7 +6,7 @@ Copyright (c) 2023 - present TroyTeam
 import os, random, string
 from datetime import timedelta
 
-ORIGIN = "https://4af3-197-14-128-233.ngrok-free.app"
+ORIGIN = "http://51.254.112:8545"
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 UPLOAD_FOLDER = './uploads/'
