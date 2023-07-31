@@ -12,7 +12,7 @@ export function ButtonMenu() {
 
   const onDownload = async () => {
     try {
-      const response = await axios.get(`${apiUrl}//api/download`, {
+      const response = await axios.get(`${apiUrl}/api/download`, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
