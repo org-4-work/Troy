@@ -4,6 +4,7 @@ import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import { IconCloudUpload, IconX, IconDownload } from '@tabler/icons-react';
 import axios from 'axios';
 import FormData from 'form-data'
+import apiUrl from '../../config/api';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -47,7 +48,7 @@ export function DropzoneButton({ title,doctype }: DropzonButtonProps) {
       file[0].name
     );
     try {
-      const response = await axios.post(``${apiUrl}//api/upload/${doctype}`, formData, {
+      const response = await axios.post(`${apiUrl}//api/upload/${doctype}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

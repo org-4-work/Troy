@@ -1,6 +1,6 @@
 import { Button, Menu, Text, useMantineTheme,Notification  } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import apiUrl from "./config/api.js";
+import apiUrl from "./../../config/api.js";
 import axios from 'axios';
 import {
   IconSquareCheck,
