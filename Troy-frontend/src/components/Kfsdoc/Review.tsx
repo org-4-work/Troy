@@ -34,7 +34,7 @@ export function Review({ reviewtype, setLoading }: ReviewProps) {
   const { classes, theme } = useStyles();
   const [progress, setProgress] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState("c97b9423-1050-4448-8d2a-82369bcc0bd1_KFS - CT UK Smaller Companies Fund_E.DOCX");
 
   const onDownload = async () => {
     try {
@@ -59,7 +59,7 @@ export function Review({ reviewtype, setLoading }: ReviewProps) {
       setLoading(true);
   
       try {
-        const response = await axios.post(`${apiUrl}/api/review`, {
+        const response = await axios.get(`${apiUrl}/api/review`, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -79,7 +79,7 @@ export function Review({ reviewtype, setLoading }: ReviewProps) {
       }
     } else {
       try {
-        const response = await axios.post(`${apiUrl}/api/reviewoddoc`, {
+        const response = await axios.get(`${apiUrl}/api/reviewoddoc`, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -92,6 +92,7 @@ export function Review({ reviewtype, setLoading }: ReviewProps) {
         console.error(error);
       }
     }
+    setLink("");
   };
   
   return (

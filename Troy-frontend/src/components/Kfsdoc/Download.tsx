@@ -56,7 +56,7 @@ export function ButtonMenu() {
           }
           // onClick={onDownload}
         >
-          <a href='`${apiUrl}//api/download'>Download docx</a>
+          <a href='`${apiUrl}/api/download'>Download docx</a>
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

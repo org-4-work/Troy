@@ -46,9 +46,9 @@ class ChineseFileUpload(Resource):
         uploaded_chinese_files.append(unique_filename)
         return "Chinese Document Uploaded"
 
-@rest_api.route('/api/review', methods=['POST', 'OPTIONS'])
+@rest_api.route('/api/review', methods=['GET', 'OPTIONS'])
 class Review(Resource):
-    def post(self): 
+    def get(self): 
         if not uploaded_chinese_files or not uploaded_english_files:
             return 'No uploaded files to review', 404
 
@@ -64,16 +64,10 @@ class Review(Resource):
         except Exception as e:
             return jsonify({"error": f"Error sending the file: {e}"}), 500
 
-    def options(self):
-        response = jsonify({"message": "CORS preflight request successful."})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        response.headers.add('Access-Control-Allow-Methods', 'POST')
-        return response
     
-@rest_api.route('/api/download/<string:filename>', methods=['POST'])  # Use POST instead of GET
+@rest_api.route('/api/download/<string:filename>', methods=['GET', 'OPTIONS'])  # Use POST instead of GET
 class Download(Resource):
-    def post(self, filename):  # Use post method instead of get method
+    def get(self, filename):  # Use post method instead of get method
         app_path = os.path.abspath(os.path.dirname(__file__))
         parent_folder = os.path.dirname(app_path)
         file_path = os.path.join(parent_folder, UPLOAD_FOLDER, filename)
@@ -84,3 +78,4 @@ class Download(Resource):
                 return jsonify({"error": f"Error sending the file: {e}"}), 500
         else:
             return jsonify({"error": "File not found"}), 404
+    

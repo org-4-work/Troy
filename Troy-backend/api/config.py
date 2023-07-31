@@ -6,7 +6,7 @@ Copyright (c) 2023 - present TroyTeam
 import os, random, string
 from datetime import timedelta
 
-ORIGIN = "http://51.254.112:8545"
+ORIGIN = "http://197.14.165.12:8545"
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 UPLOAD_FOLDER = './uploads/'
