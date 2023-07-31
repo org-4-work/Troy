@@ -6,6 +6,8 @@ Copyright (c) 2023 - present TroyTeam
 import os, random, string
 from datetime import timedelta
 
+ORIGIN = "https://4af3-197-14-128-233.ngrok-free.app"
+
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 UPLOAD_FOLDER = './uploads/'
 ALLOWED_EXTENSIONS = {'docx'}

@@ -1,6 +1,7 @@
 import os
 import uuid
 import json
+from flask import jsonify
 import traceback
 import pandas as pd
 from docx import Document
@@ -21,37 +22,32 @@ class Reviewer:
         """
         Start the review process by initializing KFSDocReviewer and processing the results.
         """
-        try :
-            print("Starting review")
-            kfc_document = KFSDocReviewer(self.en_path, self.ch_path)
-            print("Initializing KFSDocReviewer")
-            kfc_document.initialize()
-            print("Processing results")
-            global english_sentences_array
-            global ai_translated_array
-            global chinese_array
-            global translation_accuracy_array
-            global number_matching_scores_array
+        
+        print("Starting review")
+        kfc_document = KFSDocReviewer(self.en_path, self.ch_path)
+        print("Initializing KFSDocReviewer")
+        kfc_document.initialize()
+        print("Processing results")
+        global english_sentences_array
+        global ai_translated_array
+        global chinese_array
+        global translation_accuracy_array
+        global number_matching_scores_array
 
 
-            print("Number : 1")
-            english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array = kfc_document.treat()
-            print("Number : 2")
-            print(number_matching_scores_array)
-            # number_matching_scores_array = [
-            #     eval(item) for item in number_matching_scores_array]
-            print("Number : 3")
-            english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array = remove_wrong_lines(
-            english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array)
-            print('generating')
-            highlited_file = generate_result(english_sentences_array, self.en_path)
-            print('successfully')
+        print("Number : 1")
+        english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array = kfc_document.treat()
+        print("Number : 2")
+        # number_matching_scores_array = [
+        #     eval(item) for item in number_matching_scores_array]
+        print("Number : 3")
+        english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array = remove_wrong_lines(
+        english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array)
+        print('generating')
+        highlited_file = generate_result(english_sentences_array, self.en_path)
+        print('successfully')
 
-            return highlited_file
-        except Exception as e:
-            traceback.print_exc()
-            print('error', e)
-
+        return jsonify({"docx_file": highlited_file})    
 
 def remove_wrong_lines(english_sentences_array, ai_translated_array, chinese_array, translation_accuracy_array, number_matching_scores_array):
     list_of_wrong_lines = [

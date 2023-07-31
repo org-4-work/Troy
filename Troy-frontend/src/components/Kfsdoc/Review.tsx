@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useInterval } from '@mantine/hooks';
 import { createStyles, Button, Progress } from '@mantine/core';
+import apiUrl from "./../../config/api.js";
+
 import axios from 'axios';
 
 const useStyles = createStyles((theme) => ({
@@ -36,7 +38,7 @@ export function Review({ reviewtype, setLoading }: ReviewProps) {
 
   const onDownload = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/download/${encodeURIComponent(link)}`, {
+      const response = await axios.get(`${apiUrl}/api/download/${encodeURIComponent(link)}`, {
         responseType: 'blob',
       });
 
@@ -52,42 +54,46 @@ export function Review({ reviewtype, setLoading }: ReviewProps) {
     }
   };
 
-
   const onReview = async () => {
-    if (reviewtype == "kfs") {
-      setLoading(true)
-
+    if (reviewtype === "kfs") {
+      setLoading(true);
+  
       try {
-        const response = await axios.get(`http://localhost:5000/api/review`, {
+        const response = await axios.post(`${apiUrl}/api/review`, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'application/json'
           }
         });
-        setLoading(false)
-        setLoaded(true)
-        setLink(response.data.docx_file)
+  
+        setLoading(false);
+        setLoaded(true);
+  
+        if (response.data.docx_file) {
+          setLink(response.data.docx_file);
+        } else {
+          console.error("Invalid response from the server:", response.data);
+        }
+      } catch (error) {
+        setLoading(false);
+        console.error("Error during review:", error);
+      }
+    } else {
+      try {
+        const response = await axios.post(`${apiUrl}/api/reviewoddoc`, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+  
+        setLoading(false);
         console.log(response.data); // Response from the server
       } catch (error) {
-        setLoading(false)
+        setLoading(false);
         console.error(error);
       }
     }
-    else {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/reviewoddoc`, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-        setLoading(false)
-        console.log(response.data); // Response from the server
-      } catch (error) {
-        setLoading(false)
-        console.error(error);
-      }
-    }
-
-  }
+  };
+  
   return (
   <>
       <Button

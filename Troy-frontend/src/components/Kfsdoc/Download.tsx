@@ -1,5 +1,6 @@
 import { Button, Menu, Text, useMantineTheme,Notification  } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import apiUrl from "./config/api.js";
 import axios from 'axios';
 import {
   IconSquareCheck,
@@ -11,7 +12,7 @@ export function ButtonMenu() {
 
   const onDownload = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/download`, {
+      const response = await axios.get(`${apiUrl}//api/download`, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -55,7 +56,7 @@ export function ButtonMenu() {
           }
           // onClick={onDownload}
         >
-          <a href='http://localhost:5000/api/download'>Download docx</a>
+          <a href='`${apiUrl}//api/download'>Download docx</a>
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

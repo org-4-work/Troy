@@ -47,7 +47,7 @@ export function DropzoneButton({ title,doctype }: DropzonButtonProps) {
       file[0].name
     );
     try {
-      const response = await axios.post(`http://localhost:5000/api/upload/${doctype}`, formData, {
+      const response = await axios.post(``${apiUrl}//api/upload/${doctype}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
